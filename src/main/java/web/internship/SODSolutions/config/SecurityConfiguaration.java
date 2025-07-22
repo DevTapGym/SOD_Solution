@@ -32,7 +32,7 @@ import web.internship.SODSolutions.util.SecurityUtil;
 @RequiredArgsConstructor
 public class SecurityConfiguaration {
 
-    @Value("${nqoctai.jwt.base64-secret}")
+    @Value("${security.jwt.base64-secret}")
     private String jwtKey;
 
     final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
