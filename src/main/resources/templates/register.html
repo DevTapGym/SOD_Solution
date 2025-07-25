@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SOD Solution Account Activation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="margin: 0; padding: 0; min-width: 100%; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.6; background-color: #f4f4f9; color: #333333;">
+<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <!-- Header -->
+    <div style="background-color: #0070f3; padding: 20px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+        <h1 style="font-size: 24px; font-weight: bold; color: #ffffff; margin: 0;">Welcome to SOD Solution</h1>
+    </div>
+
+    <!-- Content -->
+    <div style="padding: 30px;">
+        <p style="margin: 0 0 16px;">Hello <span th:text="${name}" style="font-weight: 600;"></span>,</p>
+        <p style="margin: 0 0 16px;">Thank you for joining SOD Solution! To activate your account, please use the verification code below:</p>
+        <div style="text-align: center; margin: 24px 0;">
+            <h2 style="font-size: 28px; font-weight: bold; color: #0070f3; margin: 0; letter-spacing: 2px;" th:text="${codeId}"></h2>
+        </div>
+        <p style="margin: 0 0 16px;">Enter this code on the activation page within <strong>5 minutes</strong> to complete your registration.</p>
+        <div style="text-align: center; margin: 24px 0;">
+            <a href="#" style="display: inline-block; padding: 12px 24px; background-color: #0070f3; color: #ffffff; text-decoration: none; font-weight: bold; border-radius: 5px;">Activate Your Account</a>
+        </div>
+        <p style="margin: 0 0 16px; color: #666666; font-size: 14px;">If you didn’t sign up for SOD Solution, you can safely ignore this email.</p>
+    </div>
+
+    <!-- Footer -->
+    <div style="background-color: #f4f4f9; padding: 16px; text-align: center; font-size: 12px; color: #666666; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+        <p style="margin: 0;">&copy; 2025 SOD Solution. All rights reserved.</p>
+        <p style="margin: 8px 0 0;"><a href="#" style="color: #0070f3; text-decoration: none;">Contact Us</a> | <a href="#" style="color: #0070f3; text-decoration: none;">Privacy Policy</a></p>
+    </div>
+</div>
+</body>
+</html>
