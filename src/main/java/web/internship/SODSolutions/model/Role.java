@@ -21,7 +21,14 @@ public class Role {
 
     private String description;
 
-    @OneToMany(mappedBy = "role")
-    private List<User> tasks;
+    @ManyToMany
+    @JoinTable(
+            name = "role_permissions",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private List<Permission> permissions;
 
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 }

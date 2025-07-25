@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import com.nimbusds.jose.util.Base64;
@@ -37,6 +38,8 @@ public class SecurityConfiguaration {
 
     final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
+    final PermissionFilter permissionFilter; // Thêm PermissionFilter
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -44,24 +47,25 @@ public class SecurityConfiguaration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         String[] whiteList = {
-                "/", "/api/v1/auth/login", "/api/v1/auth/register", "/api/v1/auth/check-code",
+                "/", "/api/v1/auth/login/**", "/api/v1/auth/register", "/api/v1/auth/check-code",
                 "/api/v1/auth/resend-code", "/api/v1/auth/retry-password", "/api/v1/auth/change-password-retry",
-                "/api/v1/auth/login-google", "/storage/**"
+                "/api/v1/auth/login-google", "/storage/**",
+
         };
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
-                .authorizeHttpRequests(
-                        authz -> authz
-                                .requestMatchers(whiteList).permitAll()
-                                .anyRequest().authenticated())
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers(whiteList).permitAll()
+                        .anyRequest().authenticated())
                 .formLogin(AbstractHttpConfigurer::disable)
-                .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())
+                .oauth2ResourceServer((oauth2) -> oauth2
+                        .jwt(Customizer.withDefaults())
                         .authenticationEntryPoint(customAuthenticationEntryPoint))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(permissionFilter, UsernamePasswordAuthenticationFilter.class); // Thêm PermissionFilter
 
         return http.build();
     }
@@ -78,8 +82,8 @@ public class SecurityConfiguaration {
 
     @Bean
     public JwtDecoder jwtDecoder() {
-        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withSecretKey(
-                getSecretKey()).macAlgorithm(SecurityUtil.JWT_ALGORITHM).build();
+        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withSecretKey(getSecretKey())
+                .macAlgorithm(SecurityUtil.JWT_ALGORITHM).build();
         return token -> {
             try {
                 return jwtDecoder.decode(token);
