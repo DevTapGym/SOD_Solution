@@ -11,6 +11,8 @@ import web.internship.SODSolutions.model.User;
 import web.internship.SODSolutions.repository.UserRepository;
 import web.internship.SODSolutions.util.error.AppException;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -25,12 +27,8 @@ public class UserService {
         return userRepository.findByEmail(email).orElse(null);
     }
 
-    public User getUserById(Long userId) {
-        if(userId == null) {
-            return null;
-        }
-        return userRepository.findById(userId).orElseThrow(()->
-                new RuntimeException("User not found with id: " + userId));
+    public List<ResUserDTO> getAllUsers() {
+        return userMapper.toResListUserDTO(userRepository.findAll());
     }
 
     public ResUserDTO createUser(ReqUserDTO rqUser) {
