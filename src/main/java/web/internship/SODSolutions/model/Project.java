@@ -38,7 +38,6 @@ public class Project extends Auditable {
     private String review;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('pending', 'in_progress', 'completed', 'cancelled') DEFAULT 'pending'")
     private ProjectStatus status;
 
     @ManyToOne

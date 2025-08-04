@@ -14,5 +14,6 @@ public class ResUserDTO {
     String email;
     String name;
     String phone;
+    String companyName;
     String avatar;
 }

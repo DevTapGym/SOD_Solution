@@ -32,7 +32,6 @@ public class Payment extends Auditable {
     private LocalDate paymentDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('pending', 'completed', 'failed') DEFAULT 'pending'")
     private PaymentStatus paymentStatus;
 
     @Column(name = "transaction_id")

@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import com.nimbusds.jose.util.Base64;
@@ -38,7 +38,6 @@ public class SecurityConfiguaration {
 
     final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
-    final PermissionFilter permissionFilter; // Thêm PermissionFilter
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -64,8 +63,7 @@ public class SecurityConfiguaration {
                 .oauth2ResourceServer((oauth2) -> oauth2
                         .jwt(Customizer.withDefaults())
                         .authenticationEntryPoint(customAuthenticationEntryPoint))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(permissionFilter, UsernamePasswordAuthenticationFilter.class); // Thêm PermissionFilter
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
