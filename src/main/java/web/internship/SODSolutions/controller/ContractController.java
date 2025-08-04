@@ -23,8 +23,10 @@ public class ContractController {
 
     @GetMapping("/email/{email}")
     public ResponseEntity<ApiResponse<List<ResContractDTO>>> getContractsByEmail(@PathVariable String email) {
-        // Kiểm tra quyền
         String currentUserEmail = SecurityUtil.getCurrentUserLogin().orElse(null);
+        System.out.println(email);
+        System.out.println(currentUserEmail);
+
         if (currentUserEmail == null || !currentUserEmail.equals(email)) {
             ApiResponse<List<ResContractDTO>> response = ApiResponse.<List<ResContractDTO>>builder()
                     .status(HttpStatus.FORBIDDEN.value())

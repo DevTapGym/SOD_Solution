@@ -27,7 +27,7 @@ public class ContractService {
     ProjectRepository projectRepository;
 
     public List<ResContractDTO> getContractsByEmail(String email){
-        if (userRepository.existsByEmail(email)) {
+        if (!userRepository.existsByEmail(email)) {
             throw new AppException("User not found with email: " + email);
         }
 

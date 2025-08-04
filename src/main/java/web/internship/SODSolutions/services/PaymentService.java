@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import web.internship.SODSolutions.dto.request.ReqPaymentDTO;
 import web.internship.SODSolutions.dto.response.ResPaymentDTO;
 import web.internship.SODSolutions.mapper.PaymentMapper;
-import web.internship.SODSolutions.mapper.ProjectMapper;
 import web.internship.SODSolutions.model.Payment;
 import web.internship.SODSolutions.model.ProjectPhase;
 import web.internship.SODSolutions.repository.PaymentRepository;

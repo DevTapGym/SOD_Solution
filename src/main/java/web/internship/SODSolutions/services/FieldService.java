@@ -35,12 +35,18 @@ public class FieldService {
         Field existingField = fieldRepository.findById(resFieldDTO.getId())
                 .orElseThrow(() -> new AppException("Field not found with id: " + resFieldDTO.getId()));
 
-        existingField.setFieldName(resFieldDTO.getFieldName());
-        existingField.setDescription(resFieldDTO.getDescription());
+        if (resFieldDTO.getFieldName() != null) {
+            existingField.setFieldName(resFieldDTO.getFieldName());
+        }
+
+        if (resFieldDTO.getDescription() != null) {
+            existingField.setDescription(resFieldDTO.getDescription());
+        }
 
         fieldRepository.save(existingField);
         return fieldMapper.toResFieldDTO(existingField);
     }
+
 
     @Transactional
     public void deleteField(long id) {

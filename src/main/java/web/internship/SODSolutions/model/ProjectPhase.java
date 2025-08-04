@@ -38,7 +38,6 @@ public class ProjectPhase {
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('pending', 'in_progress', 'completed') DEFAULT 'pending'")
     private PhaseStatus status;
 
     @Column(name = "amount_due", nullable = false)

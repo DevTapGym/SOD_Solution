@@ -29,7 +29,7 @@ public class ProjectService {
     }
 
     public List<ResProjectDTO> getProjectByEmail(String email) {
-        if (userRepository.existsByEmail(email)) {
+        if (!userRepository.existsByEmail(email)) {
             throw new RuntimeException("User not found with id :" + email);
         }
 
@@ -46,6 +46,12 @@ public class ProjectService {
             throw new RuntimeException("User not found with id :" + request.getUserId());
         }
 
+        // Check if startDate is before endDate
+        if (request.getStartDate() != null && request.getEndDate() != null
+                && !request.getStartDate().isBefore(request.getEndDate())) {
+            throw new AppException("Start date must be before end date");
+        }
+
         Project project = projectMapper.toProject(request);
         project.setField(fieldRepository.getFieldById((request.getFieldId())));
         project.setUser(userRepository.getUserById((request.getUserId())));
@@ -58,6 +64,12 @@ public class ProjectService {
     public ResProjectDTO updateProject(ReqProjectDTO request) {
         Project existingProject = projectRepository.findById(request.getId())
                 .orElseThrow(()-> new AppException("Project not found with id:" + request.getId()));
+
+        // Check if startDate is before endDate
+        if (request.getStartDate() != null && request.getEndDate() != null
+                && !request.getStartDate().isBefore(request.getEndDate())) {
+            throw new AppException("Start date must be before end date");
+        }
 
         existingProject.setName(request.getName());
         existingProject.setDescription(request.getDescription());

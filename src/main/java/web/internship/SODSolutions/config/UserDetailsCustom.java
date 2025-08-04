@@ -1,41 +1,42 @@
 package web.internship.SODSolutions.config;
 
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import web.internship.SODSolutions.model.User;
-import web.internship.SODSolutions.repository.UserRepository;
+import web.internship.SODSolutions.services.UserService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-@FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
-@RequiredArgsConstructor
-public class CustomUserDetailsService implements UserDetailsService {
+@Component("userDetailsService")
+public class UserDetailsCustom implements UserDetailsService {
 
-    UserRepository userRepository;
+    private final UserService userService;
+
+    public UserDetailsCustom(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userService.getUserByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
 
         List<SimpleGrantedAuthority> authorities = user.getRole().getPermissions()
                 .stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getName()))
                 .collect(Collectors.toList());
 
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName()));
+
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                user.isActive(),
-                true, true, true,
-                authorities
-        );
+                authorities);
     }
 }
