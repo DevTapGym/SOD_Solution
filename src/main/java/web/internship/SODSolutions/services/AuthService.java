@@ -172,11 +172,15 @@ public class AuthService {
         return res;
     }
 
-    public ResUserDTO changePassword(String email, String code, String password) throws AppException {
-        User user = this.userService.getUserByEmail(email);
+    public ResUserDTO changePassword(String code, String password) throws AppException {
+
+        String email = SecurityUtil.getCurrentUserLogin().isPresent() ? SecurityUtil.getCurrentUserLogin().get()
+                : "";
+        User user = userService.getUserByEmail(email);
         if (user == null) {
             throw new AppException("User not found");
         }
+
         if (user.getCodeExpired().isBefore(Instant.now())) {
             throw new AppException("Code expired");
         }
