@@ -81,21 +81,9 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-
-    @PostMapping("/retry-password")
-    public ResponseEntity<ApiResponse<ResUserDTO>> retryPassword(@RequestParam("email") String email) throws AppException {
-        ResUserDTO res = this.authService.retryPassword(email);
-        ApiResponse<ResUserDTO> response = ApiResponse.<ResUserDTO>builder()
-                .status(200)
-                .message("Retry password successful")
-                .data(res)
-                .build();
-        return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/change-password-retry")
+    @PostMapping("/change-password")
     public ResponseEntity<ApiResponse<ResUserDTO>> changePasswordRetry(@RequestBody ReqChangePasswordRetryDTO req) throws AppException {
-        ResUserDTO res = this.authService.changePasswordRetry(req.getEmail(), req.getCode(), req.getPassword());
+        ResUserDTO res = this.authService.changePassword(req.getEmail(), req.getCode(), req.getPassword());
         ApiResponse<ResUserDTO> response = ApiResponse.<ResUserDTO>builder()
                 .status(200)
                 .message("Change password retry successful")

@@ -172,27 +172,7 @@ public class AuthService {
         return res;
     }
 
-    public ResUserDTO retryPassword(String email) throws AppException {
-        User user = this.userService.getUserByEmail(email);
-        if(user == null){
-            throw new AppException("User not found");
-        }
-        String otp = generateOtp();
-        user.setCodeId(otp);
-        Instant codeExpired = Instant.now().plus(5, ChronoUnit.MINUTES);
-        user.setCodeExpired(codeExpired);
-        this.userRepository.save(user);
-
-        this.emailService.sendEmailFromTemplateSync(
-                user.getEmail(),
-                "SODSolution - Retry Password",
-                "register",
-                user.getName(),
-                otp);
-        return userMapper.toResUserDTO(user);
-    }
-
-    public ResUserDTO changePasswordRetry(String email, String code, String password) throws AppException {
+    public ResUserDTO changePassword(String email, String code, String password) throws AppException {
         User user = this.userService.getUserByEmail(email);
         if (user == null) {
             throw new AppException("User not found");

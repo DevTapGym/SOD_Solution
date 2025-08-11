@@ -68,7 +68,12 @@ public class DatabaseInitializer implements CommandLineRunner {
                     new Permission(null, "VIEW_PAYMENT_BY_PROJECT", "/api/v1/payments/project/{projectId}", "GET", "PAYMENT"),
                     new Permission(null, "CREATE_PAYMENT", "/api/v1/payments", "POST", "PAYMENT"),
                     new Permission(null, "UPDATE_PAYMENT", "/api/v1/payments", "PUT", "PAYMENT"),
-                    new Permission(null, "DELETE_PAYMENT", "/api/v1/payments/{id}", "DELETE", "PAYMENT")
+                    new Permission(null, "DELETE_PAYMENT", "/api/v1/payments/{id}", "DELETE", "PAYMENT"),
+
+                    new Permission(null, "VIEW_ALL_FORM", "/api/v1/forms/getAll", "GET", "FORM"),
+                    new Permission(null, "VIEW_FORM_BY_ID", "/api/v1/forms/{id}", "GET", "FORM"),
+                    new Permission(null, "CREATE_FORM", "/api/v1/forms", "POST", "FORM"),
+                    new Permission(null, "DELETE_FORM", "/api/v1/forms/{id}", "DELETE", "FORM")
             );
             permissionRepository.saveAll(permissions);
         }
