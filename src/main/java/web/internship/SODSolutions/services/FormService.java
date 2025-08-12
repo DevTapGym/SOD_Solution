@@ -33,6 +33,17 @@ public class FormService {
     @Transactional
     public Form createForm(Form form) {
         validateForm(form);
+
+        // Kiểm tra email đã tồn tại chưa
+        if (formRepository.existsByEmail(form.getEmail())) {
+            throw new AppException("Email already exists");
+        }
+
+        // Kiểm tra số điện thoại đã tồn tại chưa
+        if (formRepository.existsByPhone(form.getPhone())) {
+            throw new AppException("Phone number already exists");
+        }
+
         return formRepository.save(form);
     }
 
