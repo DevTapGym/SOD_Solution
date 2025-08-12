@@ -22,10 +22,10 @@ public class GlobalException {
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<ApiResponse<String>> handleAppException(AppException e) {
         ApiResponse<String> response = ApiResponse.<String>builder()
-                .status(HttpStatus.BAD_REQUEST.value())
-                .message("Bad Request")
+                .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
+                .message("Unprocessable Entity")
                 .error(e.getMessage())
                 .build();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
     }
 }
