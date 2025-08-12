@@ -13,8 +13,8 @@ public class GlobalException {
     ResponseEntity<ApiResponse<String>> handleException(Exception e) {
         ApiResponse<String> response = ApiResponse.<String>builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .message("An error occurred")
-                .error(e.getMessage())
+                .message(e.getMessage())
+                .error("An error occurred")
                 .build();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
@@ -23,9 +23,11 @@ public class GlobalException {
     ResponseEntity<ApiResponse<String>> handleAppException(AppException e) {
         ApiResponse<String> response = ApiResponse.<String>builder()
                 .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
-                .message("Unprocessable Entity")
-                .error(e.getMessage())
+                .message(e.getMessage())
+                .error("Unprocessable Entity")
                 .build();
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
     }
+
+
 }
