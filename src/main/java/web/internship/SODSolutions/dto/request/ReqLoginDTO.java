@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 public class ReqLoginDTO {
 
     @NotBlank(message = "Username is required")
-    String username;
+    String email;
 
     @Min(value = 6, message = "Password must be at least 6 characters long")
     @NotBlank(message = "Password is required")

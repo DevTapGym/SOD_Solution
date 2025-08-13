@@ -47,14 +47,14 @@ public class AuthService {
     }
 
     public ResLoginDTO login(ReqLoginDTO rqLogin) throws AppException {
-        UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(rqLogin.getUsername(),
+        UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(rqLogin.getEmail(),
                 rqLogin.getPassword());
 
         Authentication authentication = this.authenticationManagerBuilder.getObject().authenticate(loginToken);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        User userDB = userService.getUserByEmail(rqLogin.getUsername());
+        User userDB = userService.getUserByEmail(rqLogin.getEmail());
 
         if(!userDB.isActive()){
             throw new AppException("User is not active");
