@@ -40,8 +40,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         if (permissionRepository.count() == 0) {
             List<Permission> permissions = Arrays.asList(
                     new Permission(null, "VIEW_ALL_USER", "/api/v1/user/getAll", "GET", "USER"),
-                    new Permission(null, "CREATE_USER", "/api/v1/auth", "POST", "USER"),
-                    new Permission(null, "UPDATE_USER", "/api/v1/account", "PUT", "USER"),
+                    new Permission(null, "UPDATE_USER", "/api/v1/user", "PUT", "USER"),
+                    new Permission(null, "CHANGE_PASSWORD", "/api/v1/user/change-password", "POST", "USER"),
+
+                    new Permission(null, "FORGOT-PASSWORD", "/api/v1/auth/forgot-password", "POST", "AUTH"),
+
+                    new Permission(null, "UPLOAD-FILE", "/api/v1/files", "POST", "FILE"),
 
                     new Permission(null, "VIEW_CONTRACT_BY_EMAIL", "/api/v1/contracts/email/{email}", "GET", "CONTRACT"),
                     new Permission(null, "VIEW_CONTRACT_BY_PROJECT", "/api/v1/contracts/project/{projectId}", "GET", "CONTRACT"),
@@ -94,7 +98,9 @@ public class DatabaseInitializer implements CommandLineRunner {
                     "VIEW_CONTRACT_BY_PROJECT",
                     "VIEW_PROJECT_BY_EMAIL",
                     "GET_PROJECT_PHASE_BY_PROJECT",
-                    "VIEW_PAYMENT_BY_PROJECT"
+                    "VIEW_PAYMENT_BY_PROJECT",
+                    "UPDATE_USER",
+                    "CHANGE_PASSWORD"
             );
             List<Permission> userPermissions = allPermissions.stream()
                     .filter(p -> userPermissionNames.contains(p.getName()))

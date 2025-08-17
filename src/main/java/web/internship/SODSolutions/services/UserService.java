@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import web.internship.SODSolutions.dto.request.ReqUpdateUserDTO;
 import web.internship.SODSolutions.dto.request.ReqUserDTO;
 import web.internship.SODSolutions.dto.response.ResUserDTO;
 import web.internship.SODSolutions.mapper.UserMapper;
 import web.internship.SODSolutions.model.User;
 import web.internship.SODSolutions.repository.UserRepository;
+import web.internship.SODSolutions.util.SecurityUtil;
 import web.internship.SODSolutions.util.error.AppException;
 
 import java.util.List;
@@ -21,7 +23,6 @@ public class UserService {
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
     UserMapper userMapper;
-
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
@@ -37,13 +38,40 @@ public class UserService {
         user.setPassword(hashPassword);
         user = userRepository.save(user);
 
-
         return userMapper.toResUserDTO(user);
     }
 
-    public ResUserDTO changePassword(String oldPassword, String newPassword, Long id) throws AppException {
+    public ResUserDTO updateUser(ReqUpdateUserDTO rqUser, Long id) throws AppException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new AppException("User not found with id: " + id));
+
+        if (rqUser.getName() != null) {
+            user.setName(rqUser.getName());
+        }
+        if (rqUser.getPhone() != null) {
+            user.setPhone(rqUser.getPhone());
+        }
+        if(rqUser.getAddress() != null) {
+            user.setAddress(rqUser.getAddress());
+        }
+        if(rqUser.getAvatar() != null) {
+            user.setAvatar(rqUser.getAvatar());
+        }
+        if (rqUser.getCompanyName() != null) {
+            user.setCompanyName(rqUser.getCompanyName());
+        }
+
+        user = userRepository.save(user);
+        return userMapper.toResUserDTO(user);
+    }
+
+    public ResUserDTO changePassword(String oldPassword, String newPassword) throws AppException {
+        String email = SecurityUtil.getCurrentUserLogin().isPresent() ? SecurityUtil.getCurrentUserLogin().get()
+                : "";
+        User user = getUserByEmail(email);
+        if (user == null) {
+            throw new AppException("User not found");
+        }
 
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new AppException("Wrong password");

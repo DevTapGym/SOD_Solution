@@ -172,10 +172,7 @@ public class AuthService {
         return res;
     }
 
-    public ResUserDTO changePassword(String code, String password) throws AppException {
-
-        String email = SecurityUtil.getCurrentUserLogin().isPresent() ? SecurityUtil.getCurrentUserLogin().get()
-                : "";
+    public ResUserDTO changePassword(String code, String password, String email) throws AppException {
         User user = userService.getUserByEmail(email);
         if (user == null) {
             throw new AppException("User not found");
