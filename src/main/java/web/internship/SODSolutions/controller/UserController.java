@@ -36,10 +36,10 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<ResUserDTO>> updateUser(@PathVariable Long id,
+    @PutMapping()
+    public ResponseEntity<ApiResponse<ResUserDTO>> updateUser(
                                                               @Valid @RequestBody ReqUpdateUserDTO rqUser) {
-        ResUserDTO updatedUser = userService.updateUser(rqUser, id);
+        ResUserDTO updatedUser = userService.updateUser(rqUser);
         ApiResponse<ResUserDTO> response = ApiResponse.<ResUserDTO>builder()
                 .status(200)
                 .message("User updated successfully")
