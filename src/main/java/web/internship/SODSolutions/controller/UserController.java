@@ -1,10 +1,13 @@
 package web.internship.SODSolutions.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import web.internship.SODSolutions.dto.request.ReqChangePasswordDTO;
 import web.internship.SODSolutions.dto.request.ReqLoginDTO;
+import web.internship.SODSolutions.dto.request.ReqUpdateUserDTO;
 import web.internship.SODSolutions.dto.response.ApiResponse;
 import web.internship.SODSolutions.dto.response.ResLoginDTO;
 import web.internship.SODSolutions.dto.response.ResUserDTO;
@@ -32,6 +35,36 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<ResUserDTO>> updateUser(@PathVariable Long id,
+                                                              @Valid @RequestBody ReqUpdateUserDTO rqUser) {
+        ResUserDTO updatedUser = userService.updateUser(rqUser, id);
+        ApiResponse<ResUserDTO> response = ApiResponse.<ResUserDTO>builder()
+                .status(200)
+                .message("User updated successfully")
+                .data(updatedUser)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<ApiResponse<ResUserDTO>> changePassword(@Valid @RequestBody ReqChangePasswordDTO request) {
+        ResUserDTO updatedUser = userService.changePassword(
+                request.getOldPassword(),
+                request.getNewPassword()
+        );
+
+        ApiResponse<ResUserDTO> response = ApiResponse.<ResUserDTO>builder()
+                .status(200)
+                .message("Password changed successfully")
+                .data(updatedUser)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
 
 
 

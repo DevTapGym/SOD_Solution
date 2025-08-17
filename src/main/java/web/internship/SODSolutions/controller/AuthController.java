@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import web.internship.SODSolutions.dto.request.ReqChangePasswordRetryDTO;
+import web.internship.SODSolutions.dto.request.ReqForgotPasswordDTO;
 import web.internship.SODSolutions.dto.request.ReqCheckCodeDTO;
 import web.internship.SODSolutions.dto.request.ReqLoginDTO;
 import web.internship.SODSolutions.dto.request.ReqUserDTO;
@@ -81,9 +81,9 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/change-password")
-    public ResponseEntity<ApiResponse<ResUserDTO>> changePasswordRetry(@RequestBody ReqChangePasswordRetryDTO req) throws AppException {
-        ResUserDTO res = this.authService.changePassword(req.getCode(), req.getPassword());
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiResponse<ResUserDTO>> changePasswordRetry(@RequestBody ReqForgotPasswordDTO req) throws AppException {
+        ResUserDTO res = this.authService.changePassword(req.getCode(), req.getPassword(), req.getEmail());
         ApiResponse<ResUserDTO> response = ApiResponse.<ResUserDTO>builder()
                 .status(200)
                 .message("Change password retry successful")

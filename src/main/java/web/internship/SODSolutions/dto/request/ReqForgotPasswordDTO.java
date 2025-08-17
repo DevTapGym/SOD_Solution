@@ -7,7 +7,8 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class ReqChangePasswordRetryDTO {
+public class ReqForgotPasswordDTO {
     String code;
     String password;
+    String email;
 }

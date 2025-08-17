@@ -9,18 +9,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class ReqUserDTO{
+public class ReqUpdateUserDTO {
     String name;
-
-    String email;
-
-    String password;
-
     String phone;
-
     String address;
-
     String avatar;
-
     String companyName;
 }
