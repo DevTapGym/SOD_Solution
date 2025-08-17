@@ -41,9 +41,13 @@ public class UserService {
         return userMapper.toResUserDTO(user);
     }
 
-    public ResUserDTO updateUser(ReqUpdateUserDTO rqUser, Long id) throws AppException {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new AppException("User not found with id: " + id));
+    public ResUserDTO updateUser(ReqUpdateUserDTO rqUser) throws AppException {
+        String email = SecurityUtil.getCurrentUserLogin().isPresent() ? SecurityUtil.getCurrentUserLogin().get()
+                : "";
+        User user = getUserByEmail(email);
+        if (user == null) {
+            throw new AppException("User not found");
+        }
 
         if (rqUser.getName() != null) {
             user.setName(rqUser.getName());
