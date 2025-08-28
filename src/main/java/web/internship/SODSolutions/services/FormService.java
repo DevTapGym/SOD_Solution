@@ -4,7 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import web.internship.SODSolutions.dto.request.ReqFormDTO;
+import web.internship.SODSolutions.dto.response.ResFormDTO;
+import web.internship.SODSolutions.mapper.FormMapper;
+import web.internship.SODSolutions.model.Field;
 import web.internship.SODSolutions.model.Form;
+import web.internship.SODSolutions.repository.FieldRepository;
 import web.internship.SODSolutions.repository.FormRepository;
 import web.internship.SODSolutions.util.error.AppException;
 
@@ -17,34 +22,44 @@ import java.util.regex.Pattern;
 public class FormService {
 
     FormRepository formRepository;
+    FormMapper formMapper;
+    FieldRepository fieldRepository;
 
     static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
     static final Pattern PHONE_PATTERN = Pattern.compile("^[0-9]{8,15}$");
 
-    public List<Form> getAllForms() {
-        return formRepository.findAll();
+    public List<ResFormDTO> getAllForms() {
+        return formMapper.toResFormDTO(formRepository.findAll());
     }
 
-    public Form getFormById(long formId) {
-        return formRepository.findById(formId)
+    public ResFormDTO getFormById(long formId) {
+        Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new AppException("Form not found with id: " + formId));
+
+        return formMapper.toResFormDTO(form);
     }
 
     @Transactional
-    public Form createForm(Form form) {
-        validateForm(form);
+    public ResFormDTO createForm(ReqFormDTO reqFormDTO) {
+        validateForm(reqFormDTO);
 
         // Kiểm tra email đã tồn tại chưa
-        if (formRepository.existsByEmail(form.getEmail())) {
+        if (formRepository.existsByEmail(reqFormDTO.getEmail())) {
             throw new AppException("Email already exists");
         }
 
         // Kiểm tra số điện thoại đã tồn tại chưa
-        if (formRepository.existsByPhone(form.getPhone())) {
+        if (formRepository.existsByPhone(reqFormDTO.getPhone())) {
             throw new AppException("Phone number already exists");
         }
 
-        return formRepository.save(form);
+        Field field = fieldRepository.findById(reqFormDTO.getFieldId()).orElseThrow(
+                () -> new AppException("Field not found with id: " + reqFormDTO.getFieldId()));
+
+        Form form = formMapper.toForm(reqFormDTO);
+        form.setField(field);
+
+        return formMapper.toResFormDTO(formRepository.save(form));
     }
 
     @Transactional
@@ -55,7 +70,7 @@ public class FormService {
         formRepository.deleteById(formId);
     }
 
-    private void validateForm(Form form) {
+    private void validateForm(ReqFormDTO form) {
         if (form.getName() == null || form.getName().trim().isEmpty()) {
             throw new AppException("Full name is required");
         }
