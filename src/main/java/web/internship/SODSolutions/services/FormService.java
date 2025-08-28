@@ -68,8 +68,5 @@ public class FormService {
         if (form.getCompanyName() == null || form.getCompanyName().trim().isEmpty()) {
             throw new AppException("Company name is required");
         }
-        if (form.getCompanyAddress() != null && form.getCompanyAddress().trim().isEmpty()) {
-            throw new AppException("Company address cannot be blank if provided");
-        }
     }
 }

@@ -49,7 +49,7 @@ public class SecurityConfiguaration {
         String[] whiteList = {
                 "/", "/api/v1/auth/login/**", "/api/v1/auth/register", "/api/v1/auth/check-code",
                 "/api/v1/auth/resend-code", "/api/v1/auth/forgot-password",
-                "/storage/**", "/api/v1/forms"
+                "/storage/**", "/api/v1/forms", "/api/v1/fields/getAll"
 
         };
 

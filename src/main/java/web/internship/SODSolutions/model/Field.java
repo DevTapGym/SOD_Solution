@@ -25,4 +25,7 @@ public class Field {
 
     @OneToMany(mappedBy = "field")
     private List<Project> projects;
+
+    @OneToMany(mappedBy = "field")
+    private List<Form> forms;
 }

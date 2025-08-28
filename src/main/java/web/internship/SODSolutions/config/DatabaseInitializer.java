@@ -4,12 +4,11 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import web.internship.SODSolutions.model.Field;
 import web.internship.SODSolutions.model.Permission;
 import web.internship.SODSolutions.model.Role;
 import web.internship.SODSolutions.model.User;
-import web.internship.SODSolutions.repository.PermissionRepository;
-import web.internship.SODSolutions.repository.RoleRepository;
-import web.internship.SODSolutions.repository.UserRepository;
+import web.internship.SODSolutions.repository.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,12 +23,14 @@ public class DatabaseInitializer implements CommandLineRunner {
     RoleRepository roleRepository;
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
+    FieldRepository fieldRepository;
 
-    public DatabaseInitializer(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public DatabaseInitializer(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, FieldRepository fieldRepository) {
         this.permissionRepository = permissionRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.fieldRepository = fieldRepository;
     }
 
     @Override
@@ -100,7 +101,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                     "GET_PROJECT_PHASE_BY_PROJECT",
                     "VIEW_PAYMENT_BY_PROJECT",
                     "UPDATE_USER",
-                    "CHANGE_PASSWORD"
+                    "CHANGE_PASSWORD",
+                    "CREATE_FORM"
             );
             List<Permission> userPermissions = allPermissions.stream()
                     .filter(p -> userPermissionNames.contains(p.getName()))
@@ -128,6 +130,43 @@ public class DatabaseInitializer implements CommandLineRunner {
             user.setActive(true);
             user.setRole(roleRepository.findByName("USER"));
             userRepository.save(user);
+        }
+
+        if(fieldRepository.count() == 0) {
+            Field field1 = new Field();
+            field1.setFieldName("Bán lẻ & Thương mại điện tử");
+            field1.setDescription("Những ứng dụng hỗ trợ mua bán sản phẩm, hàng hóa trên Internet, giúp doanh nghiệp tiếp cận khách hàng nhanh hơn, tối ưu quản lý đơn hàng và tăng doanh số hiệu quả.");
+            fieldRepository.save(field1);
+
+            Field field2 = new Field();
+            field2.setFieldName("Giáo dục & Đào tạo");
+            field2.setDescription("Các ứng dụng học trực tuyến, luyện thi, quản lý lớp học, giúp người học tiếp cận kiến thức dễ dàng, tiện lợi và tiết kiệm thời gian.");
+            fieldRepository.save(field2);
+
+            Field field3 = new Field();
+            field3.setFieldName("Y tế & Chăm sóc sức khỏe");
+            field3.setDescription("Ứng dụng đặt lịch khám, tư vấn sức khỏe online, theo dõi tình trạng sức khỏe, mang đến trải nghiệm chăm sóc y tế an toàn và tiện lợi cho người dùng.");
+            fieldRepository.save(field3);
+
+            Field field4 = new Field();
+            field4.setFieldName("Tài chính & Ngân hàng");
+            field4.setDescription("Các ứng dụng quản lý chi tiêu, ví điện tử, đầu tư và vay vốn, giúp người dùng kiểm soát tài chính cá nhân và doanh nghiệp hiệu quả.");
+            fieldRepository.save(field4);
+
+            Field field5 = new Field();
+            field5.setFieldName("Du lịch & Giải trí");
+            field5.setDescription("Ứng dụng đặt vé máy bay, khách sạn, khám phá điểm đến và sự kiện, giúp người dùng có những trải nghiệm du lịch thú vị và dễ dàng.");
+            fieldRepository.save(field5);
+
+            Field field6 = new Field();
+            field6.setFieldName("Vận tải & Giao hàng");
+            field6.setDescription("Ứng dụng gọi xe, đặt giao hàng nhanh, theo dõi vận chuyển, giúp tối ưu dịch vụ vận tải và tăng sự tiện lợi cho khách hàng.");
+            fieldRepository.save(field6);
+
+            Field field7 = new Field();
+            field7.setFieldName("Doanh nghiệp & Quản lý công việc");
+            field7.setDescription("Các ứng dụng quản lý dự án, chấm công, CRM và điều hành doanh nghiệp, giúp tối ưu năng suất làm việc và quy trình nội bộ.");
+            fieldRepository.save(field7);
         }
 
         System.out.println(">>> END INIT DATABASE");
