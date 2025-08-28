@@ -23,9 +23,12 @@ public class Form {
 
     private String email;
 
+    private boolean isAdvised;
+
     @Column(name = "company_name")
     private String companyName;
 
-    @Column(name = "company_address")
-    private String companyAddress;
+    @ManyToOne
+    @JoinColumn(name = "field_id")
+    private Field field;
 }

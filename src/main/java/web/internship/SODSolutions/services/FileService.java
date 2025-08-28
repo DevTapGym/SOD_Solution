@@ -2,7 +2,6 @@ package web.internship.SODSolutions.services;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,4 +46,22 @@ public class FileService {
 
         return "/storage/" + folder + "/" + finalName;
     }
+
+    public String storeDocument(MultipartFile file, String folder) throws URISyntaxException, IOException {
+        // Kiểm tra định dạng PDF
+        if (!file.getOriginalFilename().toLowerCase().endsWith(".pdf")) {
+            throw new IllegalArgumentException("Chỉ chấp nhận file PDF!");
+        }
+
+        String finalName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+        URI uri = new URI(baseURI + folder + "/" + finalName);
+        Path path = Paths.get(uri);
+
+        try (InputStream inputStream = file.getInputStream()) {
+            Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        return "/storage/" + folder + "/" + finalName;
+    }
+
 }
