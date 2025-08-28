@@ -5,7 +5,9 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import web.internship.SODSolutions.dto.request.ReqFormDTO;
 import web.internship.SODSolutions.dto.response.ApiResponse;
+import web.internship.SODSolutions.dto.response.ResFormDTO;
 import web.internship.SODSolutions.model.Form;
 import web.internship.SODSolutions.services.FormService;
 
@@ -20,9 +22,9 @@ public class FormController {
     FormService formService;
 
     @GetMapping("/getAll")
-    public ResponseEntity<ApiResponse<List<Form>>> getAllForms() {
-        List<Form> forms = formService.getAllForms();
-        ApiResponse<List<Form>> response = ApiResponse.<List<Form>>builder()
+    public ResponseEntity<ApiResponse<List<ResFormDTO>>> getAllForms() {
+        List<ResFormDTO> forms = formService.getAllForms();
+        ApiResponse<List<ResFormDTO>> response = ApiResponse.<List<ResFormDTO>>builder()
                 .status(HttpStatus.OK.value())
                 .message("Forms fetched successfully")
                 .data(forms)
@@ -31,9 +33,9 @@ public class FormController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<Form>> getFormById(@PathVariable Long id) {
-        Form form = formService.getFormById(id);
-        ApiResponse<Form> response = ApiResponse.<Form>builder()
+    public ResponseEntity<ApiResponse<ResFormDTO>> getFormById(@PathVariable Long id) {
+        ResFormDTO form = formService.getFormById(id);
+        ApiResponse<ResFormDTO> response = ApiResponse.<ResFormDTO>builder()
                 .status(HttpStatus.OK.value())
                 .message("Form fetched successfully with id: " + id)
                 .data(form)
@@ -42,9 +44,9 @@ public class FormController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Form>> createForm(@RequestBody Form form) {
-        Form createdForm = formService.createForm(form);
-        ApiResponse<Form> response = ApiResponse.<Form>builder()
+    public ResponseEntity<ApiResponse<ResFormDTO>> createForm(@RequestBody ReqFormDTO reqFormDTO) {
+        ResFormDTO createdForm = formService.createForm(reqFormDTO);
+        ApiResponse<ResFormDTO> response = ApiResponse.<ResFormDTO>builder()
                 .status(HttpStatus.CREATED.value())
                 .message("Form created successfully")
                 .data(createdForm)
