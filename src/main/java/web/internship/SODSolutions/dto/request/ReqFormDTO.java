@@ -1,11 +1,11 @@
 package web.internship.SODSolutions.dto.request;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import web.internship.SODSolutions.model.Field;
+
 
 @Getter
 @Setter
@@ -16,6 +16,7 @@ public class ReqFormDTO {
      String name;
      String phone;
      String email;
+     @JsonProperty("isAdvised")
      boolean isAdvised;
      String companyName;
      Long fieldId;

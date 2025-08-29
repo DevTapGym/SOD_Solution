@@ -1,4 +1,4 @@
-package web.internship.SODSolutions.dto.response;
+package web.internship.SODSolutions.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
@@ -10,13 +10,9 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class ResFormDTO {
+public class UpdateFormDTO {
     Long id;
-    String name;
-    String phone;
-    String email;
+
     @JsonProperty("isAdvised")
     boolean isAdvised;
-    String companyName;
-    String fieldName;
 }
