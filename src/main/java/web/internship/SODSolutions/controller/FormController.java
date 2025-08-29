@@ -6,9 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.internship.SODSolutions.dto.request.ReqFormDTO;
+import web.internship.SODSolutions.dto.request.UpdateFormDTO;
 import web.internship.SODSolutions.dto.response.ApiResponse;
 import web.internship.SODSolutions.dto.response.ResFormDTO;
-import web.internship.SODSolutions.model.Form;
 import web.internship.SODSolutions.services.FormService;
 
 import java.util.List;
@@ -52,6 +52,17 @@ public class FormController {
                 .data(createdForm)
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping
+    public ResponseEntity<ApiResponse<ResFormDTO>> updateForm(@RequestBody UpdateFormDTO updateFormDTO) {
+        ResFormDTO createdForm = formService.updateForm(updateFormDTO);
+        ApiResponse<ResFormDTO> response = ApiResponse.<ResFormDTO>builder()
+                .status(HttpStatus.OK.value())
+                .message("Form updated successfully")
+                .data(createdForm)
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{id}")

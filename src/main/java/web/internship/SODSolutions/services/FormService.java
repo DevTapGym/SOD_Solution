@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.internship.SODSolutions.dto.request.ReqFormDTO;
+import web.internship.SODSolutions.dto.request.UpdateFormDTO;
 import web.internship.SODSolutions.dto.response.ResFormDTO;
 import web.internship.SODSolutions.mapper.FormMapper;
 import web.internship.SODSolutions.model.Field;
@@ -20,7 +21,6 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public class FormService {
-
     FormRepository formRepository;
     FormMapper formMapper;
     FieldRepository fieldRepository;
@@ -58,8 +58,21 @@ public class FormService {
 
         Form form = formMapper.toForm(reqFormDTO);
         form.setField(field);
-
         return formMapper.toResFormDTO(formRepository.save(form));
+    }
+
+    @Transactional
+    public ResFormDTO updateForm(UpdateFormDTO updateFormDTO) {
+        Form form = formRepository.findById(updateFormDTO.getId())
+                .orElseThrow(() -> new AppException("Form not found with id: " + updateFormDTO.getId()));
+
+
+        System.out.println("Trước khi cập nhật: isAdvised = " + form.isAdvised());
+        form.setAdvised(updateFormDTO.isAdvised());
+        System.out.println("Sau khi set: isAdvised = " + form.isAdvised());
+
+        formRepository.save(form);
+        return formMapper.toResFormDTO(form);
     }
 
     @Transactional

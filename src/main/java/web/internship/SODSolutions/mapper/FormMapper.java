@@ -16,6 +16,7 @@ public interface FormMapper {
     Form toForm(ReqFormDTO reqFormDTO);
 
     @Mapping(source = "field.fieldName", target = "fieldName")
+    @Mapping(source = "advised",target = "isAdvised")
     ResFormDTO toResFormDTO(Form form);
 
     List<ResFormDTO> toResFormDTO(List<Form> forms);
