@@ -13,6 +13,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -48,4 +49,15 @@ public class EmailService {
         String content = this.templateEngine.process(templateName, context);
         this.sendEmailSync(to, subject, content, false, true);
     }
+
+    @Async
+    public void sendEmailWithVariables(String to, String subject, String templateName,
+                                       Map<String, Object> variables) {
+        Context context = new Context();
+        context.setVariables(variables);
+
+        String content = this.templateEngine.process(templateName, context);
+        this.sendEmailSync(to, subject, content, false, true);
+    }
+
 }

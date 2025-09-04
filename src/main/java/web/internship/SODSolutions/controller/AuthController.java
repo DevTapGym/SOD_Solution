@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import web.internship.SODSolutions.dto.request.ReqForgotPasswordDTO;
-import web.internship.SODSolutions.dto.request.ReqCheckCodeDTO;
-import web.internship.SODSolutions.dto.request.ReqLoginDTO;
-import web.internship.SODSolutions.dto.request.ReqUserDTO;
+import web.internship.SODSolutions.dto.request.*;
 import web.internship.SODSolutions.dto.response.ApiResponse;
 import web.internship.SODSolutions.dto.response.ResLoginDTO;
 import web.internship.SODSolutions.dto.response.ResUserDTO;
@@ -64,6 +61,18 @@ public class AuthController {
         ApiResponse<String> response = ApiResponse.<String>builder()
                 .status(200)
                 .message("Resend code successful")
+                .data("OK")
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/send-account")
+    public ResponseEntity<ApiResponse<String>> sendAccount(@RequestBody ReqSendAccountDTO req) throws AppException {
+        this.authService.sendAccountInfoEmail(req.getEmail(),req.getPassword(),req.getLoginUrl());
+        ApiResponse<String> response = ApiResponse.<String>builder()
+                .status(200)
+                .message("Send account successful")
                 .data("OK")
                 .build();
 

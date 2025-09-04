@@ -45,6 +45,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     new Permission(null, "CHANGE_PASSWORD", "/api/v1/user/change-password", "POST", "USER"),
 
                     new Permission(null, "FORGOT-PASSWORD", "/api/v1/auth/forgot-password", "POST", "AUTH"),
+                    new Permission(null, "SENT-ACCOUNT", "/api/v1/auth/send-account", "POST", "AUTH"),
 
                     new Permission(null, "UPLOAD-FILE", "/api/v1/files", "POST", "FILE"),
 
@@ -79,6 +80,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     new Permission(null, "VIEW_FORM_BY_ID", "/api/v1/forms/{id}", "GET", "FORM"),
                     new Permission(null, "CREATE_FORM", "/api/v1/forms", "POST", "FORM"),
                     new Permission(null, "DELETE_FORM", "/api/v1/forms/{id}", "DELETE", "FORM")
+
             );
             permissionRepository.saveAll(permissions);
         }

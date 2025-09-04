@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SOD Solution - Account Information</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="margin: 0; padding: 0; min-width: 100%; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.6; background-color: #f4f4f9; color: #333333;">
+<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <!-- Header -->
+    <div style="background-color: #0070f3; padding: 20px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+        <h1 style="font-size: 24px; font-weight: bold; color: #ffffff; margin: 0;">Your Project Account</h1>
+    </div>
+
+    <!-- Content -->
+    <div style="padding: 30px;">
+        <p style="margin: 0 0 16px;">Hello <span th:text="${name}" style="font-weight: 600;"></span>,</p>
+        <p style="margin: 0 0 16px;">We have created an account for you to access and track the progress of your project with <strong>SOD Solution</strong>.</p>
+
+        <div style="background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 6px; padding: 20px; margin: 20px 0;">
+            <p style="margin: 0 0 8px; font-weight: 600;">Account Information:</p>
+            <p style="margin: 0 0 4px;"><strong>Username:</strong> <span th:text="${username}"></span></p>
+            <p style="margin: 0;"><strong>Password:</strong> <span th:text="${password}"></span></p>
+        </div>
+
+        <p style="margin: 0 0 16px;">You can log in to your account via the link below:</p>
+        <div style="text-align: center; margin: 24px 0;">
+            <a th:href="@{${loginUrl}}" style="display: inline-block; padding: 12px 24px; background-color: #0070f3; color: #ffffff; text-decoration: none; font-weight: bold; border-radius: 5px;">Login to Dashboard</a>
+        </div>
+
+        <p style="margin: 0 0 16px; color: #666666; font-size: 14px;">
+            For security, please change your password after your first login.
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <div style="background-color: #f4f4f9; padding: 16px; text-align: center; font-size: 12px; color: #666666; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+        <p style="margin: 0;">&copy; 2025 SOD Solution. All rights reserved.</p>
+        <p style="margin: 8px 0 0;"><a href="#" style="color: #0070f3; text-decoration: none;">Contact Us</a> | <a href="#" style="color: #0070f3; text-decoration: none;">Privacy Policy</a></p>
+    </div>
+</div>
+</body>
+</html>
