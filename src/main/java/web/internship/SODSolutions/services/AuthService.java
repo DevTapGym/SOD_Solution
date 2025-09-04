@@ -23,6 +23,8 @@ import web.internship.SODSolutions.util.error.AppException;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -135,6 +137,27 @@ public class AuthService {
                 user.getName(),
                 otp);
     }
+
+    public void sendAccountInfoEmail(String email, String rawPassword, String loginUrl) {
+        User user = this.userService.getUserByEmail(email);
+        if (user == null) {
+            throw new AppException("User not found");
+        }
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("name", user.getName());
+        variables.put("username", user.getEmail());
+        variables.put("password", rawPassword);
+        variables.put("loginUrl", loginUrl);
+
+        emailService.sendEmailWithVariables(
+                user.getEmail(),
+                "SOD Solution - Your Project Account",
+                "account",
+                variables
+        );
+    }
+
+
 
     public boolean isStrongPassword(String password) {
         if (password == null || password.length() < 8) {
