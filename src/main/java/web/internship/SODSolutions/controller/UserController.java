@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import web.internship.SODSolutions.dto.request.ReqChangePasswordDTO;
 import web.internship.SODSolutions.dto.request.ReqLoginDTO;
 import web.internship.SODSolutions.dto.request.ReqUpdateUserDTO;
+import web.internship.SODSolutions.dto.request.ReqUserDTO;
 import web.internship.SODSolutions.dto.response.ApiResponse;
 import web.internship.SODSolutions.dto.response.ResLoginDTO;
 import web.internship.SODSolutions.dto.response.ResUserDTO;
@@ -36,9 +37,21 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping()
+    public ResponseEntity<ApiResponse<ResUserDTO>> createUser(@RequestBody ReqUserDTO reqUserDTO) {
+        ResUserDTO res = userService.createUser(reqUserDTO);
+
+        ApiResponse<ResUserDTO> response = ApiResponse.<ResUserDTO>builder()
+                .status(200)
+                .message("Create user successfully")
+                .data(res)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
     @PutMapping()
-    public ResponseEntity<ApiResponse<ResUserDTO>> updateUser(
-                                                              @Valid @RequestBody ReqUpdateUserDTO rqUser) {
+    public ResponseEntity<ApiResponse<ResUserDTO>> updateUser(@Valid @RequestBody ReqUpdateUserDTO rqUser) {
         ResUserDTO updatedUser = userService.updateUser(rqUser);
         ApiResponse<ResUserDTO> response = ApiResponse.<ResUserDTO>builder()
                 .status(200)

@@ -43,6 +43,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     new Permission(null, "VIEW_ALL_USER", "/api/v1/user/getAll", "GET", "USER"),
                     new Permission(null, "UPDATE_USER", "/api/v1/user", "PUT", "USER"),
                     new Permission(null, "CHANGE_PASSWORD", "/api/v1/user/change-password", "POST", "USER"),
+                    new Permission(null, "CREATE_USER", "/api/v1/user", "POST", "USER"),
 
                     new Permission(null, "FORGOT-PASSWORD", "/api/v1/auth/forgot-password", "POST", "AUTH"),
                     new Permission(null, "SENT-ACCOUNT", "/api/v1/auth/send-account", "POST", "AUTH"),
