@@ -86,7 +86,7 @@ public class AuthService {
         String hashPassword = passwordEncoder.encode(req.getPassword());
         User newUser = userMapper.toUser(req);
         Instant codeExpired = Instant.now().plus(5, ChronoUnit.MINUTES);
-        Role userRole = roleRepository.findByName("USER");
+        Role userRole = roleRepository.getRoleUser();
         newUser.setRole(userRole);
         newUser.setCodeExpired(codeExpired);
         newUser.setPassword(hashPassword);

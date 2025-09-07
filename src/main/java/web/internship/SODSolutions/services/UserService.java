@@ -8,11 +8,15 @@ import web.internship.SODSolutions.dto.request.ReqUpdateUserDTO;
 import web.internship.SODSolutions.dto.request.ReqUserDTO;
 import web.internship.SODSolutions.dto.response.ResUserDTO;
 import web.internship.SODSolutions.mapper.UserMapper;
+import web.internship.SODSolutions.model.Role;
 import web.internship.SODSolutions.model.User;
+import web.internship.SODSolutions.repository.RoleRepository;
 import web.internship.SODSolutions.repository.UserRepository;
 import web.internship.SODSolutions.util.SecurityUtil;
 import web.internship.SODSolutions.util.error.AppException;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -23,13 +27,15 @@ public class UserService {
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
     UserMapper userMapper;
+    RoleRepository roleRepository;
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
     }
 
     public List<ResUserDTO> getAllUsers() {
-        return userMapper.toResListUserDTO(userRepository.findAll());
+
+        return userMapper.toResListUserDTO(userRepository.getUserByRole_id());
     }
 
     public ResUserDTO createUser(ReqUserDTO rqUser) {
@@ -41,6 +47,13 @@ public class UserService {
         String hashPassword = passwordEncoder.encode(rqUser.getPassword());
         User newUser = userMapper.toUser(rqUser);
         newUser.setPassword(hashPassword);
+
+
+        newUser.setRole(roleRepository.getRoleUser());
+
+        Instant codeExpired = Instant.now().plus(5, ChronoUnit.MINUTES);
+        newUser.setCodeExpired(codeExpired);
+
         newUser = userRepository.save(newUser);
 
         return userMapper.toResUserDTO(newUser);
