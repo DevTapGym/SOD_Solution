@@ -123,7 +123,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             admin.setPassword(passwordEncoder.encode("123456"));
             admin.setName("Admin User");
             admin.setActive(true);
-            admin.setRole(roleRepository.findByName("ADMIN"));
+            admin.setRole(roleRepository.getRoleAdmin());
             userRepository.save(admin);
 
             User user = new User();
@@ -131,7 +131,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             user.setPassword(passwordEncoder.encode("123456"));
             user.setName("Regular User");
             user.setActive(true);
-            user.setRole(roleRepository.findByName("USER"));
+            user.setRole(roleRepository.getRoleUser());
             userRepository.save(user);
         }
 
