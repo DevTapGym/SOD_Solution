@@ -33,12 +33,17 @@ public class UserService {
     }
 
     public ResUserDTO createUser(ReqUserDTO rqUser) {
-        String hashPassword = passwordEncoder.encode(rqUser.getPassword());
-        User user = userMapper.toUser(rqUser);
-        user.setPassword(hashPassword);
-        user = userRepository.save(user);
+        User user = getUserByEmail(rqUser.getEmail());
+        if (user != null) {
+            throw new AppException("Email already exists");
+        }
 
-        return userMapper.toResUserDTO(user);
+        String hashPassword = passwordEncoder.encode(rqUser.getPassword());
+        User newUser = userMapper.toUser(rqUser);
+        newUser.setPassword(hashPassword);
+        newUser = userRepository.save(newUser);
+
+        return userMapper.toResUserDTO(newUser);
     }
 
     public ResUserDTO updateUser(ReqUpdateUserDTO rqUser) throws AppException {

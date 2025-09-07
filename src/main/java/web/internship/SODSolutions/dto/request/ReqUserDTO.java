@@ -18,9 +18,5 @@ public class ReqUserDTO{
 
     String phone;
 
-    String address;
-
-    String avatar;
-
     String companyName;
 }
