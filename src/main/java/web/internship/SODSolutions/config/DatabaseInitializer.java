@@ -48,7 +48,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                     new Permission(null, "FORGOT-PASSWORD", "/api/v1/auth/forgot-password", "POST", "AUTH"),
                     new Permission(null, "SENT-ACCOUNT", "/api/v1/auth/send-account", "POST", "AUTH"),
 
-                    new Permission(null, "UPLOAD-FILE", "/api/v1/files", "POST", "FILE"),
+                    new Permission(null, "UPLOAD-AVATAR", "/api/v1/files/avatar", "POST", "FILE"),
+                    new Permission(null, "UPLOAD-CONTRACT", "/api/v1/files/contracts", "POST", "FILE"),
 
                     new Permission(null, "VIEW_CONTRACT_BY_EMAIL", "/api/v1/contracts/email", "GET", "CONTRACT"),
                     new Permission(null, "VIEW_CONTRACT_BY_PROJECT", "/api/v1/contracts/project/{projectId}", "GET", "CONTRACT"),
@@ -105,7 +106,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                     "VIEW_PAYMENT_BY_PROJECT",
                     "UPDATE_USER",
                     "CHANGE_PASSWORD",
-                    "CREATE_FORM"
+                    "CREATE_FORM",
+                    "UPLOAD-AVATAR"
             );
             List<Permission> userPermissions = allPermissions.stream()
                     .filter(p -> userPermissionNames.contains(p.getName()))

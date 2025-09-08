@@ -21,14 +21,14 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/file")
+@RequestMapping("/api/v1/files")
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public class FileController {
 
     FileService fileService;
 
-    @PostMapping("/contract")
+    @PostMapping("/contracts")
     public ResponseEntity<ApiResponse<ResUploadFileDTO>> uploadContract(
             @RequestParam("file") MultipartFile file) throws Exception {
 
