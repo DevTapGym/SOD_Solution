@@ -76,6 +76,8 @@ public class ProjectService {
         existingProject.setStartDate(request.getStartDate());
         existingProject.setEndDate(request.getEndDate());
         existingProject.setStatus(request.getStatus());
+        existingProject.setField(fieldRepository.getFieldById((request.getFieldId())));
+        existingProject.setUser(userRepository.getUserById((request.getUserId())));
         projectRepository.save(existingProject);
 
         return projectMapper.toResProjectDTO(existingProject);
