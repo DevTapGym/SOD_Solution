@@ -22,6 +22,8 @@ public interface ProjectMapper {
     Project toProject(ReqProjectDTO reqProjectDTO);
 
     @Mapping(target = "status", source = "status", qualifiedByName = "projectStatusToString")
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "fieldId", source = "field.id")
     ResProjectDTO toResProjectDTO(Project project);
 
     List<ResProjectDTO> toResProjectDTO(List<Project> projects);
