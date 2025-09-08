@@ -11,6 +11,7 @@ import web.internship.SODSolutions.model.Project;
 import web.internship.SODSolutions.repository.FieldRepository;
 import web.internship.SODSolutions.repository.ProjectRepository;
 import web.internship.SODSolutions.repository.UserRepository;
+import web.internship.SODSolutions.util.SecurityUtil;
 import web.internship.SODSolutions.util.error.AppException;
 
 import java.util.List;
@@ -28,12 +29,13 @@ public class ProjectService {
         return projectMapper.toResProjectDTO(projectRepository.findAll());
     }
 
-    public List<ResProjectDTO> getProjectByEmail(String email) {
-        if (!userRepository.existsByEmail(email)) {
-            throw new RuntimeException("User not found with id :" + email);
+    public List<ResProjectDTO> getProjectByEmail() {
+        String currentUserEmail = SecurityUtil.getCurrentUserLogin().orElse(null);
+        if (!userRepository.existsByEmail(currentUserEmail)) {
+            throw new RuntimeException("User not found with email: " + currentUserEmail);
         }
 
-        return projectMapper.toResProjectDTO(projectRepository.getProjectByUser_Email(email));
+        return projectMapper.toResProjectDTO(projectRepository.getProjectByUser_Email(currentUserEmail));
     }
 
     @Transactional

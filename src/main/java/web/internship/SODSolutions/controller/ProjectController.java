@@ -33,23 +33,12 @@ public class ProjectController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<ApiResponse<List<ResProjectDTO>>> getProjectsByEmail(@PathVariable String email) {
-        // Kiểm tra quyền
-        String currentUserEmail = SecurityUtil.getCurrentUserLogin().orElse(null);
-        if (currentUserEmail == null || !currentUserEmail.equals(email)) {
-            ApiResponse<List<ResProjectDTO>> response = ApiResponse.<List<ResProjectDTO>>builder()
-                    .status(HttpStatus.FORBIDDEN.value())
-                    .message("Access denied: You can only view your own projects")
-                    .data(null)
-                    .build();
-            return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
-        }
-
-        List<ResProjectDTO> projects = projectService.getProjectByEmail(email);
+    @GetMapping()
+    public ResponseEntity<ApiResponse<List<ResProjectDTO>>> getProjectsByEmail() {
+        List<ResProjectDTO> projects = projectService.getProjectByEmail();
         ApiResponse<List<ResProjectDTO>> response = ApiResponse.<List<ResProjectDTO>>builder()
                 .status(HttpStatus.OK.value())
-                .message("Projects fetched successfully for user: " + email)
+                .message("Projects fetched successfully")
                 .data(projects)
                 .build();
         return ResponseEntity.ok(response);
