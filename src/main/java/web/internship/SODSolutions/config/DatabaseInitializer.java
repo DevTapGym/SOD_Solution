@@ -50,14 +50,14 @@ public class DatabaseInitializer implements CommandLineRunner {
 
                     new Permission(null, "UPLOAD-FILE", "/api/v1/files", "POST", "FILE"),
 
-                    new Permission(null, "VIEW_CONTRACT_BY_EMAIL", "/api/v1/contracts/email/{email}", "GET", "CONTRACT"),
+                    new Permission(null, "VIEW_CONTRACT_BY_EMAIL", "/api/v1/contracts/email", "GET", "CONTRACT"),
                     new Permission(null, "VIEW_CONTRACT_BY_PROJECT", "/api/v1/contracts/project/{projectId}", "GET", "CONTRACT"),
                     new Permission(null, "CREATE_CONTRACT", "/api/v1/contracts", "POST", "CONTRACT"),
                     new Permission(null, "UPDATE_CONTRACT", "/api/v1/contracts", "PUT", "CONTRACT"),
                     new Permission(null, "DELETE_CONTRACT", "/api/v1/contracts/{id}", "DELETE", "CONTRACT"),
 
                     new Permission(null, "VIEW_ALL_PROJECT", "/api/v1/projects/getAll", "GET", "PROJECT"),
-                    new Permission(null, "VIEW_PROJECT_BY_EMAIL", "/api/v1/projects/{email}", "GET", "PROJECT"),
+                    new Permission(null, "VIEW_PROJECT_BY_EMAIL", "/api/v1/projects", "GET", "PROJECT"),
                     new Permission(null, "CREATE_PROJECT", "/api/v1/projects", "POST", "PROJECT"),
                     new Permission(null, "UPDATE_PROJECT", "/api/v1/projects", "PUT", "PROJECT"),
                     new Permission(null, "DELETE_PROJECT", "/api/v1/projects/{id}", "DELETE", "PROJECT"),

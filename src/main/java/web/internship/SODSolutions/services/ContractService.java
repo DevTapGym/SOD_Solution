@@ -12,6 +12,7 @@ import web.internship.SODSolutions.model.Project;
 import web.internship.SODSolutions.repository.ContractRepository;
 import web.internship.SODSolutions.repository.ProjectRepository;
 import web.internship.SODSolutions.repository.UserRepository;
+import web.internship.SODSolutions.util.SecurityUtil;
 import web.internship.SODSolutions.util.error.AppException;
 
 import java.util.List;
@@ -26,12 +27,14 @@ public class ContractService {
     UserRepository userRepository;
     ProjectRepository projectRepository;
 
-    public List<ResContractDTO> getContractsByEmail(String email){
-        if (!userRepository.existsByEmail(email)) {
-            throw new AppException("User not found with email: " + email);
+    public List<ResContractDTO> getContractsByEmail(){
+        String currentUserEmail = SecurityUtil.getCurrentUserLogin().orElse(null);
+
+        if (!userRepository.existsByEmail(currentUserEmail)) {
+            throw new AppException("User not found with email: " +currentUserEmail);
         }
 
-        return contractMapper.toResContractDTOs(contractRepository.getContractsByProject_User_Email(email));
+        return contractMapper.toResContractDTOs(contractRepository.getContractsByProject_User_Email(currentUserEmail));
     }
 
     public List<ResContractDTO> getContractByProjectId(long projectId) {

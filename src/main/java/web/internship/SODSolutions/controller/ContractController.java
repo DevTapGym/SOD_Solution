@@ -10,7 +10,7 @@ import web.internship.SODSolutions.dto.request.ReqContractDTO;
 import web.internship.SODSolutions.dto.response.ApiResponse;
 import web.internship.SODSolutions.dto.response.ResContractDTO;
 import web.internship.SODSolutions.services.ContractService;
-import web.internship.SODSolutions.util.SecurityUtil;
+
 
 import java.util.List;
 
@@ -22,24 +22,11 @@ public class ContractController {
     ContractService contractService;
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<ApiResponse<List<ResContractDTO>>> getContractsByEmail(@PathVariable String email) {
-        String currentUserEmail = SecurityUtil.getCurrentUserLogin().orElse(null);
-        System.out.println(email);
-        System.out.println(currentUserEmail);
-
-        if (currentUserEmail == null || !currentUserEmail.equals(email)) {
-            ApiResponse<List<ResContractDTO>> response = ApiResponse.<List<ResContractDTO>>builder()
-                    .status(HttpStatus.FORBIDDEN.value())
-                    .message("Access denied: You can only view your own contracts")
-                    .data(null)
-                    .build();
-            return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
-        }
-
-        List<ResContractDTO> contracts = contractService.getContractsByEmail(email);
+    public ResponseEntity<ApiResponse<List<ResContractDTO>>> getContractsByEmail() {
+        List<ResContractDTO> contracts = contractService.getContractsByEmail();
         ApiResponse<List<ResContractDTO>> response = ApiResponse.<List<ResContractDTO>>builder()
                 .status(HttpStatus.OK.value())
-                .message("Contracts fetched successfully for user: " + email)
+                .message("Contracts fetched successfully")
                 .data(contracts)
                 .build();
         return ResponseEntity.ok(response);

@@ -28,16 +28,20 @@ public class ProjectPhaseService {
         if (!projectRepository.existsById(projectId)) {
             throw new AppException("Project not found with id: " + projectId);
         }
-
         return projectPhaseMapper.toResProjectPhaseDTO(projectPhaseRepository.getProjectPhasesByProject_Id(projectId));
     }
+
 
     @Transactional
     public ResProjectPhaseDTO createProjectPhase(ReqProjectPhaseDTO projectPhaseDTO) {
         Project project = projectRepository.findById(projectPhaseDTO.getProjectId())
                 .orElseThrow(() -> new AppException("Project not found with id: " + projectPhaseDTO.getProjectId()));
 
-        // Validate start and end dates
+        long phaseCount = projectPhaseRepository.countByProject_Id(project.getId());
+        if (phaseCount >= 5) {
+            throw new AppException("A project can only have up to 5 phases");
+        }
+
         validatePhaseDates(projectPhaseDTO.getStartDate(), projectPhaseDTO.getEndDate(), project);
 
         ProjectPhase projectPhase = projectPhaseMapper.toProjectPhase(projectPhaseDTO);
@@ -46,6 +50,7 @@ public class ProjectPhaseService {
 
         return projectPhaseMapper.toResProjectPhaseDTO(projectPhase);
     }
+
 
     @Transactional
     public ResProjectPhaseDTO updateProjectPhase(ReqProjectPhaseDTO projectPhaseDTO) {

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ProjectPhaseRepository extends JpaRepository<ProjectPhase, Long> {
     List<ProjectPhase> getProjectPhasesByProject_Id(Long projectId);
+
+    long countByProject_Id(Long id);
 }
