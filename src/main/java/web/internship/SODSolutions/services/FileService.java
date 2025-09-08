@@ -50,7 +50,7 @@ public class FileService {
     public String storeDocument(MultipartFile file, String folder) throws URISyntaxException, IOException {
         // Kiểm tra định dạng PDF
         if (!file.getOriginalFilename().toLowerCase().endsWith(".pdf")) {
-            throw new IllegalArgumentException("Chỉ chấp nhận file PDF!");
+            throw new IllegalArgumentException("Only PDF files accepted!");
         }
 
         String finalName = System.currentTimeMillis() + "-" + file.getOriginalFilename();

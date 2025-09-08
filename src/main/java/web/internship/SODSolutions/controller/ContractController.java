@@ -21,7 +21,7 @@ import java.util.List;
 public class ContractController {
     ContractService contractService;
 
-    @GetMapping("/email/{email}")
+    @GetMapping("/email")
     public ResponseEntity<ApiResponse<List<ResContractDTO>>> getContractsByEmail() {
         List<ResContractDTO> contracts = contractService.getContractsByEmail();
         ApiResponse<List<ResContractDTO>> response = ApiResponse.<List<ResContractDTO>>builder()
