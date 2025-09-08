@@ -25,4 +25,6 @@ public class ResProjectDTO {
     int rating;
     String review;
     ProjectStatus status;
+    Long userId;
+    Long fieldId;
 }
