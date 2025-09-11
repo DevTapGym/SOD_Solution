@@ -20,6 +20,17 @@ import java.util.List;
 public class PaymentController {
     PaymentService paymentService;
 
+    @GetMapping()
+    public ResponseEntity<ApiResponse<List<ResPaymentDTO>>> getAllPayment() {
+        List<ResPaymentDTO> payments = paymentService.getAllPayments();
+        ApiResponse<List<ResPaymentDTO>> response = ApiResponse.<List<ResPaymentDTO>>builder()
+                .status(HttpStatus.OK.value())
+                .message("Payments fetched successfully")
+                .data(payments)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/project/{projectId}")
     public ResponseEntity<ApiResponse<List<ResPaymentDTO>>> getPaymentsByProjectId(@PathVariable Long projectId) {
         List<ResPaymentDTO> payments = paymentService.getPaymentsByProjectId(projectId);

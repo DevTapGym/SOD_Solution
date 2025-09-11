@@ -16,7 +16,6 @@ import java.time.LocalDate;
 public class ReqPaymentDTO {
     Long id;
     Long projectPhaseId;
-    BigDecimal amount;
     LocalDate paymentDate;
     PaymentStatus paymentStatus;
     String transactionId;

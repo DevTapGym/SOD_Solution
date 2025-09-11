@@ -21,13 +21,6 @@ public class Payment extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "phase_id", nullable = false)
-    private ProjectPhase projectPhase;
-
-    @Column(nullable = false)
-    private BigDecimal amount;
-
     @Column(name = "payment_date")
     private LocalDate paymentDate;
 
@@ -36,4 +29,8 @@ public class Payment extends Auditable {
 
     @Column(name = "transaction_id")
     private String transactionId;
+
+    @OneToOne
+    @JoinColumn(name = "phase_id", nullable = false, unique = true)
+    private ProjectPhase projectPhase;
 }
