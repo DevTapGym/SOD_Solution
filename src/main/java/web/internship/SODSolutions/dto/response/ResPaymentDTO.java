@@ -21,7 +21,6 @@ public class ResPaymentDTO {
     String createdBy;
     String updatedBy;
     Long id;
-    BigDecimal amount;
     LocalDate paymentDate;
     PaymentStatus paymentStatus;
     String transactionId;

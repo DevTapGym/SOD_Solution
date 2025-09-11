@@ -46,6 +46,6 @@ public class ProjectPhase {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "projectPhase", cascade = CascadeType.ALL)
-    private List<Payment> payments;
+    @OneToOne(mappedBy = "projectPhase", cascade = CascadeType.ALL)
+    private Payment payment;
 }

@@ -2,6 +2,7 @@ package web.internship.SODSolutions.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Contract extends Auditable{
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
+    @NotBlank
     @Column(name = "contract_number", unique = true, nullable = false)
     private String contractNumber;
 

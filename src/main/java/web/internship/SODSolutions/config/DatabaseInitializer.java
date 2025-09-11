@@ -73,6 +73,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     new Permission(null, "UPDATE_FIELD", "/api/v1/fields", "PUT", "FIELD"),
                     new Permission(null, "DELETE_FIELD", "/api/v1/fields/{id}", "DELETE", "FIELD"),
 
+                    new Permission(null, "VIEW_ALL_PAYMENT", "/api/v1/payments", "GET", "PAYMENT"),
                     new Permission(null, "VIEW_PAYMENT_BY_PROJECT", "/api/v1/payments/project/{projectId}", "GET", "PAYMENT"),
                     new Permission(null, "CREATE_PAYMENT", "/api/v1/payments", "POST", "PAYMENT"),
                     new Permission(null, "UPDATE_PAYMENT", "/api/v1/payments", "PUT", "PAYMENT"),

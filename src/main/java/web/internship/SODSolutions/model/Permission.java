@@ -14,9 +14,8 @@ public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name; // Ví dụ: CREATE_ACCOUNT
-    private String apiPath; // Ví dụ: /api/v1/account
-    private String method; // Ví dụ: POST
-    private String module; // Ví dụ: ACCOUNTS
+    private String name;
+    private String apiPath;
+    private String method;
+    private String module;
 }
