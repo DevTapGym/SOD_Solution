@@ -17,6 +17,7 @@ import java.time.LocalDate;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class ResProjectPhaseDTO {
     Long id;
+    Long projectId;
     String phaseName;
     String description;
     LocalDate startDate;

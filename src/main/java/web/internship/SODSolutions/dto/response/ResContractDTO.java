@@ -23,4 +23,5 @@ public class ResContractDTO {
     LocalDate signedDate;
     BigDecimal totalAmount;
     String contractFile;
+    Long projectId;
 }

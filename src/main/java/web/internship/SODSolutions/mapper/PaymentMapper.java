@@ -17,6 +17,7 @@ public interface PaymentMapper {
     Payment toPayment(ReqPaymentDTO reqPaymentDTO);
 
     @Mapping(target = "paymentStatus", source = "paymentStatus", qualifiedByName = "paymentStatusToString")
+    @Mapping(target = "projectPhaseId", source = "projectPhase.id")
     ResPaymentDTO toResPaymentDTO(Payment payment);
 
     List<ResPaymentDTO> toResPaymentDTO(List<Payment> payments);

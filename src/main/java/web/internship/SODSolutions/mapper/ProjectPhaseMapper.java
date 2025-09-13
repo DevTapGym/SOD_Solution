@@ -17,6 +17,7 @@ public interface ProjectPhaseMapper {
     ProjectPhase toProjectPhase(ReqProjectPhaseDTO reqProjectPhaseDTO);
 
     @Mapping(target = "status", source = "status", qualifiedByName = "phaseStatusToString")
+    @Mapping(target = "projectId", source = "project.id")
     ResProjectPhaseDTO toResProjectPhaseDTO(ProjectPhase projectPhase);
 
     List<ResProjectPhaseDTO> toResProjectPhaseDTO(List<ProjectPhase> projectPhaseList);
