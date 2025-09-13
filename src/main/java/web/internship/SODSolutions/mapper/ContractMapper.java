@@ -13,6 +13,7 @@ public interface ContractMapper {
     @Mapping(target = "project", ignore = true)
     Contract toContract(ReqContractDTO reqContractDTO);
 
+    @Mapping(target = "projectId",source = "project.id")
     ResContractDTO toResContractDTO(Contract contract);
 
     List<ResContractDTO> toResContractDTOs(List<Contract> contracts);

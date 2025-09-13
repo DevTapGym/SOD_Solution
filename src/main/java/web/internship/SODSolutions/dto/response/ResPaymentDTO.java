@@ -24,4 +24,5 @@ public class ResPaymentDTO {
     LocalDate paymentDate;
     PaymentStatus paymentStatus;
     String transactionId;
+    Long projectPhaseId;
 }
