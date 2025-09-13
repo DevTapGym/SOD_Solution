@@ -21,6 +21,17 @@ import java.util.List;
 public class ContractController {
     ContractService contractService;
 
+    @GetMapping()
+    public ResponseEntity<ApiResponse<List<ResContractDTO>>> getAllContracts() {
+        List<ResContractDTO> contracts = contractService.getAllContracts();
+        ApiResponse<List<ResContractDTO>> response = ApiResponse.<List<ResContractDTO>>builder()
+                .status(HttpStatus.OK.value())
+                .message("Contracts fetched successfully")
+                .data(contracts)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/email")
     public ResponseEntity<ApiResponse<List<ResContractDTO>>> getContractsByEmail() {
         List<ResContractDTO> contracts = contractService.getContractsByEmail();

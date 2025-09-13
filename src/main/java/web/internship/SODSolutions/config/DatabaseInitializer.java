@@ -51,6 +51,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     new Permission(null, "UPLOAD-AVATAR", "/api/v1/files/avatar", "POST", "FILE"),
                     new Permission(null, "UPLOAD-CONTRACT", "/api/v1/files/contracts", "POST", "FILE"),
 
+                    new Permission(null, "VIEW_All_CONTRACT", "/api/v1/contracts", "GET", "CONTRACT"),
                     new Permission(null, "VIEW_CONTRACT_BY_EMAIL", "/api/v1/contracts/email", "GET", "CONTRACT"),
                     new Permission(null, "VIEW_CONTRACT_BY_PROJECT", "/api/v1/contracts/project/{projectId}", "GET", "CONTRACT"),
                     new Permission(null, "CREATE_CONTRACT", "/api/v1/contracts", "POST", "CONTRACT"),

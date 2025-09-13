@@ -15,6 +15,7 @@ import web.internship.SODSolutions.repository.UserRepository;
 import web.internship.SODSolutions.util.SecurityUtil;
 import web.internship.SODSolutions.util.error.AppException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,6 +27,10 @@ public class ContractService {
     ContractMapper contractMapper;
     UserRepository userRepository;
     ProjectRepository projectRepository;
+
+    public List<ResContractDTO> getAllContracts() {
+        return contractMapper.toResContractDTOs(contractRepository.findAll());
+    }
 
     public List<ResContractDTO> getContractsByEmail(){
         String currentUserEmail = SecurityUtil.getCurrentUserLogin().orElse(null);
