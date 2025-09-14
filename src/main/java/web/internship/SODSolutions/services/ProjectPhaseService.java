@@ -24,6 +24,10 @@ public class ProjectPhaseService {
     ProjectPhaseMapper projectPhaseMapper;
     ProjectRepository projectRepository;
 
+    public List<ResProjectPhaseDTO> getAllProjectPhases() {
+        return projectPhaseMapper.toResProjectPhaseDTO(projectPhaseRepository.findAll());
+    }
+
     public List<ResProjectPhaseDTO> getProjectPhasesByProjectId(Long projectId) {
         if (!projectRepository.existsById(projectId)) {
             throw new AppException("Project not found with id: " + projectId);

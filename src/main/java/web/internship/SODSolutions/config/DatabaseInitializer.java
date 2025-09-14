@@ -64,6 +64,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                     new Permission(null, "UPDATE_PROJECT", "/api/v1/projects", "PUT", "PROJECT"),
                     new Permission(null, "DELETE_PROJECT", "/api/v1/projects/{id}", "DELETE", "PROJECT"),
 
+                    new Permission(null, "GET_ALL_PROJECT_PHASE", "/api/v1/project-phases", "GET", "PROJECT-PHASE"),
                     new Permission(null, "GET_PROJECT_PHASE_BY_PROJECT", "/api/v1/project-phases/project/{projectId}", "GET", "PROJECT-PHASE"),
                     new Permission(null, "CREATE_PROJECT_PHASE", "/api/v1/project-phases", "POST", "PROJECT-PHASE"),
                     new Permission(null, "UPDATE_PROJECT_PHASE", "/api/v1/project-phases", "PUT", "PROJECT-PHASE"),
