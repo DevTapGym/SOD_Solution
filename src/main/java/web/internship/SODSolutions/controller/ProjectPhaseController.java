@@ -20,6 +20,17 @@ import java.util.List;
 public class ProjectPhaseController {
     ProjectPhaseService projectPhaseService;
 
+    @GetMapping()
+    public ResponseEntity<ApiResponse<List<ResProjectPhaseDTO>>> getAllProjectPhases() {
+        List<ResProjectPhaseDTO> projectPhases = projectPhaseService.getAllProjectPhases();
+        ApiResponse<List<ResProjectPhaseDTO>> response = ApiResponse.<List<ResProjectPhaseDTO>>builder()
+                .status(HttpStatus.OK.value())
+                .message("Project phases fetched successfully")
+                .data(projectPhases)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/project/{projectId}")
     public ResponseEntity<ApiResponse<List<ResProjectPhaseDTO>>> getProjectPhasesByProjectId(@PathVariable Long projectId) {
         List<ResProjectPhaseDTO> projectPhases = projectPhaseService.getProjectPhasesByProjectId(projectId);
