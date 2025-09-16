@@ -25,6 +25,8 @@ public class Form {
 
     private boolean isAdvised;
 
+    private boolean hasAccount;
+
     @Column(name = "company_name")
     private String companyName;
 

@@ -19,4 +19,5 @@ public class ResFormDTO {
     boolean isAdvised;
     String companyName;
     String fieldName;
+    boolean hasAccount;
 }

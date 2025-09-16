@@ -20,4 +20,5 @@ public class ReqFormDTO {
      boolean isAdvised;
      String companyName;
      Long fieldId;
+     boolean hasAccount;
 }
